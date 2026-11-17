@@ -1,0 +1,1 @@
+{"plots":[{"id":"P1","xmin":0,"ymin":0,"xmax":10,"ymax":10,"crop":"tomato"},{"id":"P2","xmin":12,"ymin":0,"xmax":22,"ymax":10,"crop":"pepper"},{"id":"P3","xmin":40,"ymin":0,"xmax":50,"ymax":10,"crop":"bean"}],"observations":[{"id":"O1","plot":"P1","x":9,"y":5,"at":"2026-06-01T09:00:00+08:00","result":"positive"}]}
