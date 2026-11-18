@@ -1,0 +1,1 @@
+{"products":[{"id":"TOM-SYN","crop":"tomato","min_dose":1,"max_dose":3}],"applications":[{"id":"TA1","plot":"P1","product":"TOM-SYN","at":"2026-06-01T11:00:00+08:00","area_fraction":0.5,"dose":2}]}

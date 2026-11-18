@@ -136,6 +136,13 @@ def diagnose_import(path,file):
                 raise ValueError("diagnosis_identity_conflict")
             if not old:
                 db.execute("INSERT INTO diagnosis_review VALUES (?,?,?,?,?,?,?)",(item["id"],*values,source))
+                if item.get("lab_sample"):
+                    sample=db.execute("SELECT * FROM lab_sample WHERE id=?",(item["lab_sample"],)).fetchone()
+                    if not sample or sample["observation_id"]!=item["observation"] or sample["verdict"] not in {"positive","negative"}:
+                        raise ValueError("lab_diagnosis_basis_invalid")
+                    expected="confirmed" if sample["verdict"]=="positive" else "rejected"
+                    if item["verdict"]!=expected:raise ValueError("lab_diagnosis_verdict_mismatch")
+                    db.execute("INSERT INTO lab_diagnosis_basis VALUES (?,?)",(item["id"],item["lab_sample"]))
                 result[item["verdict"]]+=1
         return result
     return ingest(path,"diagnosis",file,handler)

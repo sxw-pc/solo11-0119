@@ -4,9 +4,13 @@ import tempfile
 from pathlib import Path
 from .domain import observation_import,zone_plan,movement_import,diagnose_import,dispatch_import,return_import
 from .report import report,report_json
+from .lab import lab_import
+from .treatment import treatment_import
+from .staff import staff_import
 
 COMMANDS={"observation-import":observation_import,"zone-plan":zone_plan,"movement-import":movement_import,
-          "diagnose-import":diagnose_import,"dispatch-import":dispatch_import,"return-import":return_import}
+          "diagnose-import":diagnose_import,"dispatch-import":dispatch_import,"return-import":return_import,
+          "lab-import":lab_import,"treatment-import":treatment_import,"staff-import":staff_import}
 
 def demo(workdir=None):
     root=Path(workdir or tempfile.mkdtemp(prefix="cropquarantine-"))

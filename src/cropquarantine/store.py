@@ -14,9 +14,16 @@ CREATE TABLE IF NOT EXISTS movement_decision(id TEXT PRIMARY KEY,lot_id TEXT REF
 CREATE TABLE IF NOT EXISTS movement_event(id INTEGER PRIMARY KEY,movement_id TEXT REFERENCES movement_decision(id),status TEXT,reason TEXT,zone_version INTEGER,source_id INTEGER REFERENCES source_blob(id));
 CREATE TABLE IF NOT EXISTS movement_dispatch(id TEXT PRIMARY KEY,movement_id TEXT REFERENCES movement_decision(id),quantity INTEGER,carrier TEXT,status TEXT,source_id INTEGER REFERENCES source_blob(id));
 CREATE TABLE IF NOT EXISTS dispatch_return(id TEXT PRIMARY KEY,dispatch_id TEXT REFERENCES movement_dispatch(id),quantity INTEGER,returned_at TEXT,seal TEXT,source_id INTEGER REFERENCES source_blob(id));
+CREATE TABLE IF NOT EXISTS lab_run(id TEXT PRIMARY KEY,run_at TEXT,negative_control REAL,positive_control REAL,status TEXT,source_id INTEGER REFERENCES source_blob(id));
+CREATE TABLE IF NOT EXISTS lab_sample(id TEXT PRIMARY KEY,run_id TEXT REFERENCES lab_run(id),observation_id TEXT REFERENCES plant_observation(id),signal REAL,verdict TEXT,source_id INTEGER REFERENCES source_blob(id));
+CREATE TABLE IF NOT EXISTS lab_diagnosis_basis(review_id TEXT PRIMARY KEY REFERENCES diagnosis_review(id),sample_id TEXT REFERENCES lab_sample(id));
+CREATE TABLE IF NOT EXISTS treatment_product(id TEXT PRIMARY KEY,crop TEXT,min_dose REAL,max_dose REAL,source_id INTEGER REFERENCES source_blob(id));
+CREATE TABLE IF NOT EXISTS treatment_application(id TEXT PRIMARY KEY,plot_id TEXT REFERENCES field_plot(id),product_id TEXT REFERENCES treatment_product(id),applied_at TEXT,area_fraction REAL,dose REAL,status TEXT,source_id INTEGER REFERENCES source_blob(id));
+CREATE TABLE IF NOT EXISTS staff_entry(id TEXT PRIMARY KEY,person TEXT,plot_id TEXT REFERENCES field_plot(id),in_at TEXT,out_at TEXT,purpose TEXT,zone_version INTEGER,status TEXT,source_id INTEGER REFERENCES source_blob(id));
 """
 TABLES=["source_blob","field_plot","plant_observation","diagnosis_review","quarantine_zone","reinspection","plant_lot","movement_decision","movement_event","movement_dispatch","dispatch_return"]
 TABLES.insert(1,"source_failure")
+TABLES.extend(["lab_run","lab_sample","lab_diagnosis_basis","treatment_product","treatment_application","staff_entry"])
 def connect(path):
     p=Path(path);p.parent.mkdir(parents=True,exist_ok=True)
     db=sqlite3.connect(p);db.row_factory=sqlite3.Row;db.executescript(SCHEMA);return db

@@ -1,0 +1,1 @@
+{"runs":[{"id":"RUN2","at":"2026-06-01T11:00:00+08:00","negative_control":0.7,"positive_control":0.9}],"samples":[{"id":"S2","run":"RUN2","observation":"O1","signal":0.8}]}
