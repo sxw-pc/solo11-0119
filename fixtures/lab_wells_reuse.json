@@ -1,0 +1,6 @@
+{"runs":[{"id":"RUN-PLATE","at":"2026-06-01T10:00:00+08:00","negative_control":0.1,"positive_control":0.9,"residual_coefficient":[0.1,0.1]}],
+ "wells":[{"id":"W1","run":"RUN-PLATE","position":1,"role":"positive_control","raw":1.0,"tip_action":"fresh"},
+          {"id":"W2","run":"RUN-PLATE","position":2,"role":"sample","raw":0.55,"tip_action":"reuse","sample":"SP2","observation":"O1"},
+          {"id":"W3","run":"RUN-PLATE","position":3,"role":"sample","raw":0.55,"tip_action":"reuse","sample":"SP3","observation":"O1"}],
+ "samples":[{"id":"SP2","run":"RUN-PLATE","observation":"O1","signal":0.55,"well":"W2"},
+            {"id":"SP3","run":"RUN-PLATE","observation":"O1","signal":0.55,"well":"W3"}]}

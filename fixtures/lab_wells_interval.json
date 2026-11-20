@@ -1,0 +1,4 @@
+{"runs":[{"id":"RUN-RANGE","at":"2026-06-01T10:00:00+08:00","negative_control":0.1,"positive_control":0.9,"residual_coefficient":[0.0,0.2]}],
+ "wells":[{"id":"Y1","run":"RUN-RANGE","position":1,"role":"positive_control","raw":1.0,"tip_action":"fresh"},
+          {"id":"Y2","run":"RUN-RANGE","position":2,"role":"sample","raw":0.55,"tip_action":"reuse","sample":"SR2","observation":"O1"}],
+ "samples":[{"id":"SR2","run":"RUN-RANGE","observation":"O1","signal":0.55,"well":"Y2"}]}

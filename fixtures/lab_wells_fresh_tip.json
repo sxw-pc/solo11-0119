@@ -1,0 +1,6 @@
+{"runs":[{"id":"RUN-SWAP","at":"2026-06-01T10:00:00+08:00","negative_control":0.1,"positive_control":0.9,"residual_coefficient":[0.1,0.1]}],
+ "wells":[{"id":"X1","run":"RUN-SWAP","position":1,"role":"positive_control","raw":1.0,"tip_action":"fresh"},
+          {"id":"X2","run":"RUN-SWAP","position":2,"role":"sample","raw":0.55,"tip_action":"fresh","sample":"SS2","observation":"O1"},
+          {"id":"X3","run":"RUN-SWAP","position":3,"role":"sample","raw":0.55,"tip_action":"fresh","sample":"SS3","observation":"O1"}],
+ "samples":[{"id":"SS2","run":"RUN-SWAP","observation":"O1","signal":0.55,"well":"X2"},
+            {"id":"SS3","run":"RUN-SWAP","observation":"O1","signal":0.55,"well":"X3"}]}

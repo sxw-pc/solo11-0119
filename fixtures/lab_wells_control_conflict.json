@@ -1,0 +1,3 @@
+{"runs":[{"id":"RUN-CONFLICT","at":"2026-06-01T10:00:00+08:00","negative_control":0.1,"positive_control":0.9,"residual_coefficient":[0.1,0.1]}],
+ "wells":[{"id":"Z1","run":"RUN-CONFLICT","position":1,"role":"negative_control","raw":0.2,"tip_action":"fresh"},
+          {"id":"Z2","run":"RUN-CONFLICT","position":2,"role":"positive_control","raw":0.8,"tip_action":"reuse"}]}

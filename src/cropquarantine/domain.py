@@ -138,7 +138,10 @@ def diagnose_import(path,file):
                 db.execute("INSERT INTO diagnosis_review VALUES (?,?,?,?,?,?,?)",(item["id"],*values,source))
                 if item.get("lab_sample"):
                     sample=db.execute("SELECT * FROM lab_sample WHERE id=?",(item["lab_sample"],)).fetchone()
-                    if not sample or sample["observation_id"]!=item["observation"] or sample["verdict"] not in {"positive","negative"}:
+                    if not sample or sample["observation_id"]!=item["observation"]:
+                        raise ValueError("lab_diagnosis_basis_invalid")
+                    if sample["verdict"]=="review":raise ValueError("lab_diagnosis_sample_held")
+                    if sample["verdict"] not in {"positive","negative"}:
                         raise ValueError("lab_diagnosis_basis_invalid")
                     expected="confirmed" if sample["verdict"]=="positive" else "rejected"
                     if item["verdict"]!=expected:raise ValueError("lab_diagnosis_verdict_mismatch")
