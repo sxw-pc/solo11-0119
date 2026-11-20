@@ -19,13 +19,23 @@ def observation_import(path,file):
         for o in data["observations"]:
             _time(o["at"])
             plot=db.execute("SELECT * FROM field_plot WHERE id=?",(o["plot"],)).fetchone()
+            radius=float(o.get("error_radius",0) or 0)
+            if radius<0:raise ValueError("invalid_observation_error_radius")
             valid=bool(plot and plot["xmin"]<=o["x"]<=plot["xmax"] and plot["ymin"]<=o["y"]<=plot["ymax"] and o["result"] in {"positive","negative"})
             status="valid" if valid else "held"
             old=db.execute("SELECT * FROM plant_observation WHERE id=?",(o["id"],)).fetchone()
-            values=(o["plot"],o["x"],o["y"],o["at"],o["result"],status)
-            if old and tuple(old[k] for k in ("plot_id","x","y","observed_at","result","status"))!=values:raise ValueError("observation_identity_conflict")
-            if not old:db.execute("INSERT INTO plant_observation VALUES (?,?,?,?,?,?,?,?)",(o["id"],*values,source));result["observations"]+=1
+            values=(o["plot"],o["x"],o["y"],radius,o["at"],o["result"],status)
+            if old and tuple(old[k] for k in ("plot_id","x","y","error_radius","observed_at","result","status"))!=values:raise ValueError("observation_identity_conflict")
+            if not old:
+                db.execute("INSERT INTO plant_observation(id,plot_id,x,y,error_radius,observed_at,result,status,source_id) VALUES (?,?,?,?,?,?,?,?,?)",
+                           (o["id"],*values,source));result["observations"]+=1
+                if valid and o["result"]=="positive":
+                    count=db.execute("SELECT COUNT(*) FROM plant_observation WHERE plot_id=? AND status='valid' AND result='positive'",
+                                     (o["plot"],)).fetchone()[0]
+                    if count>8:raise ValueError("plot_positive_point_limit")
             result["held"]+=not valid
+        from .spray import recompute_certificates
+        recompute_certificates(db,source)
         return result
     return ingest(path,"observation",file,handler)
 
@@ -144,6 +154,8 @@ def diagnose_import(path,file):
                     if item["verdict"]!=expected:raise ValueError("lab_diagnosis_verdict_mismatch")
                     db.execute("INSERT INTO lab_diagnosis_basis VALUES (?,?)",(item["id"],item["lab_sample"]))
                 result[item["verdict"]]+=1
+        from .spray import recompute_certificates
+        recompute_certificates(db,source)
         return result
     return ingest(path,"diagnosis",file,handler)
 

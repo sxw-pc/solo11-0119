@@ -1,0 +1,9 @@
+{
+  "certificates": [
+    {"id": "C1", "plot": "P1", "scope": "local", "requested_at": "2026-07-01T12:00:00+08:00"},
+    {"id": "C2", "plot": "P1", "scope": "whole_plot", "requested_at": "2026-07-01T12:05:00+08:00"},
+    {"id": "C4", "plot": "P4", "scope": "local", "requested_at": "2026-07-01T12:10:00+08:00"},
+    {"id": "C5", "plot": "P5", "scope": "local", "requested_at": "2026-07-01T12:15:00+08:00"},
+    {"id": "C6", "plot": "P6", "scope": "local", "requested_at": "2026-07-01T12:20:00+08:00"}
+  ]
+}

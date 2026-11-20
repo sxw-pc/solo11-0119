@@ -1,0 +1,6 @@
+{
+  "products": [],
+  "applications": [
+    {"id": "TA6", "plot": "P6", "product": "TOM-SYN", "at": "2026-07-01T11:30:00+08:00", "area_fraction": 0.3, "dose": 1.1}
+  ]
+}

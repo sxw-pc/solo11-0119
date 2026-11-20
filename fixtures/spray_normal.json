@@ -1,0 +1,37 @@
+{
+  "calibrations": [
+    {"id": "CAL1", "plot": "P1", "factor_min": 0.9, "factor_max": 1.1, "certified_at": "2026-06-30T18:00:00+08:00"},
+    {"id": "CAL2", "plot": "P4", "factor_min": 0.8, "factor_max": 1.2, "certified_at": "2026-06-30T18:05:00+08:00"},
+    {"id": "CAL3", "plot": "P5", "factor_min": 0.5, "factor_max": 1.5, "certified_at": "2026-06-30T18:10:00+08:00"},
+    {"id": "CAL4", "plot": "P6", "factor_min": 1.0, "factor_max": 1.0, "certified_at": "2026-06-30T18:15:00+08:00"}
+  ],
+  "segments": [
+    {"id": "S1", "plot": "P1", "application": "TA1", "calibration": "CAL1", "nozzle": "NZ-01",
+     "at": "2026-07-01T10:00:00+08:00", "product": "TOM-SYN",
+     "xmin": 0, "ymin": 0, "xmax": 6, "ymax": 10, "nominal_dose": 1.5},
+    {"id": "S2", "plot": "P1", "application": "TA2", "calibration": "CAL1", "nozzle": "NZ-02",
+     "at": "2026-07-01T10:30:00+08:00", "product": "TOM-SYN",
+     "xmin": 4, "ymin": 0, "xmax": 10, "ymax": 8, "nominal_dose": 1.0},
+    {"id": "S3", "plot": "P1", "application": "TA1", "calibration": "CAL1", "nozzle": "NZ-01",
+     "at": "2026-07-01T10:05:00+08:00", "product": "TOM-SYN",
+     "xmin": 0, "ymin": 6, "xmax": 4, "ymax": 10, "nominal_dose": 1.2},
+    {"id": "S4", "plot": "P1", "application": "TA2", "calibration": "CAL1", "nozzle": "NZ-03",
+     "at": "2026-07-01T10:35:00+08:00", "product": "TOM-SYN",
+     "xmin": 6, "ymin": 2, "xmax": 9, "ymax": 8, "nominal_dose": 1.2},
+    {"id": "S5", "plot": "P1", "application": "TA1", "calibration": "CAL1", "nozzle": "NZ-02",
+     "at": "2026-07-01T10:10:00+08:00", "product": "TOM-SYN",
+     "xmin": 1, "ymin": 1, "xmax": 3, "ymax": 3, "nominal_dose": 0.8},
+    {"id": "S6", "plot": "P4", "application": "TA4", "calibration": "CAL2", "nozzle": "NZ-04",
+     "at": "2026-07-01T10:00:00+08:00", "product": "TOM-SYN",
+     "xmin": 40, "ymin": 0, "xmax": 46, "ymax": 10, "nominal_dose": 2.0},
+    {"id": "S7", "plot": "P4", "application": "TA4B", "calibration": "CAL2", "nozzle": "NZ-05",
+     "at": "2026-07-01T10:30:00+08:00", "product": "TOM-SYN",
+     "xmin": 44, "ymin": 0, "xmax": 50, "ymax": 10, "nominal_dose": 2.0},
+    {"id": "S8", "plot": "P5", "application": "TA3", "calibration": "CAL3", "nozzle": "NZ-06",
+     "at": "2026-07-01T10:00:00+08:00", "product": "TOM-SYN",
+     "xmin": 60, "ymin": 0, "xmax": 65, "ymax": 10, "nominal_dose": 2.0},
+    {"id": "S9", "plot": "P6", "application": "TA5", "calibration": "CAL4", "nozzle": "NZ-07",
+     "at": "2026-07-01T10:00:00+08:00", "product": "TOM-SYN",
+     "xmin": 80, "ymin": 0, "xmax": 85, "ymax": 10, "nominal_dose": 1.5}
+  ]
+}

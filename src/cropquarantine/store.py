@@ -5,7 +5,7 @@ PRAGMA foreign_keys=ON;
 CREATE TABLE IF NOT EXISTS source_blob(id INTEGER PRIMARY KEY,kind TEXT,sha TEXT,raw BLOB,result TEXT,UNIQUE(kind,sha));
 CREATE TABLE IF NOT EXISTS source_failure(id INTEGER PRIMARY KEY,kind TEXT,sha TEXT,raw BLOB,error TEXT,created_at TEXT DEFAULT CURRENT_TIMESTAMP);
 CREATE TABLE IF NOT EXISTS field_plot(id TEXT PRIMARY KEY,xmin REAL,ymin REAL,xmax REAL,ymax REAL,crop TEXT,source_id INTEGER REFERENCES source_blob(id));
-CREATE TABLE IF NOT EXISTS plant_observation(id TEXT PRIMARY KEY,plot_id TEXT REFERENCES field_plot(id),x REAL,y REAL,observed_at TEXT,result TEXT,status TEXT,source_id INTEGER REFERENCES source_blob(id));
+CREATE TABLE IF NOT EXISTS plant_observation(id TEXT PRIMARY KEY,plot_id TEXT REFERENCES field_plot(id),x REAL,y REAL,error_radius REAL,observed_at TEXT,result TEXT,status TEXT,source_id INTEGER REFERENCES source_blob(id));
 CREATE TABLE IF NOT EXISTS diagnosis_review(id TEXT PRIMARY KEY,observation_id TEXT REFERENCES plant_observation(id),verdict TEXT,reviewed_at TEXT,reviewer TEXT,reason TEXT,source_id INTEGER REFERENCES source_blob(id));
 CREATE TABLE IF NOT EXISTS quarantine_zone(id INTEGER PRIMARY KEY,plot_id TEXT REFERENCES field_plot(id),version INTEGER,asof TEXT,radius REAL,status TEXT,reason TEXT,source_id INTEGER REFERENCES source_blob(id),UNIQUE(plot_id,version));
 CREATE TABLE IF NOT EXISTS reinspection(id TEXT PRIMARY KEY,plot_id TEXT REFERENCES field_plot(id),observed_at TEXT,result TEXT,source_id INTEGER REFERENCES source_blob(id));
@@ -20,10 +20,15 @@ CREATE TABLE IF NOT EXISTS lab_diagnosis_basis(review_id TEXT PRIMARY KEY REFERE
 CREATE TABLE IF NOT EXISTS treatment_product(id TEXT PRIMARY KEY,crop TEXT,min_dose REAL,max_dose REAL,source_id INTEGER REFERENCES source_blob(id));
 CREATE TABLE IF NOT EXISTS treatment_application(id TEXT PRIMARY KEY,plot_id TEXT REFERENCES field_plot(id),product_id TEXT REFERENCES treatment_product(id),applied_at TEXT,area_fraction REAL,dose REAL,status TEXT,source_id INTEGER REFERENCES source_blob(id));
 CREATE TABLE IF NOT EXISTS staff_entry(id TEXT PRIMARY KEY,person TEXT,plot_id TEXT REFERENCES field_plot(id),in_at TEXT,out_at TEXT,purpose TEXT,zone_version INTEGER,status TEXT,source_id INTEGER REFERENCES source_blob(id));
+CREATE TABLE IF NOT EXISTS spray_calibration(id TEXT PRIMARY KEY,plot_id TEXT REFERENCES field_plot(id),factor_min REAL,factor_max REAL,certified_at TEXT,source_id INTEGER REFERENCES source_blob(id),UNIQUE(plot_id,id));
+CREATE TABLE IF NOT EXISTS spray_segment(id TEXT PRIMARY KEY,plot_id TEXT REFERENCES field_plot(id),application_id TEXT REFERENCES treatment_application(id),calibration_id TEXT REFERENCES spray_calibration(id),spray_nozzle TEXT,applied_at TEXT,product_id TEXT REFERENCES treatment_product(id),xmin REAL,ymin REAL,xmax REAL,ymax REAL,nominal_dose REAL,source_id INTEGER REFERENCES source_blob(id));
+CREATE TABLE IF NOT EXISTS treatment_certificate(id TEXT PRIMARY KEY,plot_id TEXT REFERENCES field_plot(id),scope TEXT,requested_at TEXT,status TEXT,reason TEXT,source_id INTEGER REFERENCES source_blob(id));
+CREATE TABLE IF NOT EXISTS certificate_followup(id INTEGER PRIMARY KEY,certificate_id TEXT REFERENCES treatment_certificate(id),plot_id TEXT,kind TEXT,detail TEXT,created_source INTEGER);
 """
 TABLES=["source_blob","field_plot","plant_observation","diagnosis_review","quarantine_zone","reinspection","plant_lot","movement_decision","movement_event","movement_dispatch","dispatch_return"]
 TABLES.insert(1,"source_failure")
-TABLES.extend(["lab_run","lab_sample","lab_diagnosis_basis","treatment_product","treatment_application","staff_entry"])
+TABLES.extend(["lab_run","lab_sample","lab_diagnosis_basis","treatment_product","treatment_application","staff_entry",
+               "spray_calibration","spray_segment","treatment_certificate","certificate_followup"])
 def connect(path):
     p=Path(path);p.parent.mkdir(parents=True,exist_ok=True)
     db=sqlite3.connect(p);db.row_factory=sqlite3.Row;db.executescript(SCHEMA);return db

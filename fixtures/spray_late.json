@@ -1,0 +1,8 @@
+{
+  "calibrations": [],
+  "segments": [
+    {"id": "S10", "plot": "P6", "application": "TA6", "calibration": "CAL4", "nozzle": "NZ-08",
+     "at": "2026-07-01T11:30:00+08:00", "product": "TOM-SYN",
+     "xmin": 80, "ymin": 0, "xmax": 83, "ymax": 10, "nominal_dose": 2.0}
+  ]
+}

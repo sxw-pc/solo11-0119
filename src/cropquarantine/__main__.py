@@ -7,10 +7,12 @@ from .report import report,report_json
 from .lab import lab_import
 from .treatment import treatment_import
 from .staff import staff_import
+from .spray import spray_import,certificate_import
 
 COMMANDS={"observation-import":observation_import,"zone-plan":zone_plan,"movement-import":movement_import,
           "diagnose-import":diagnose_import,"dispatch-import":dispatch_import,"return-import":return_import,
-          "lab-import":lab_import,"treatment-import":treatment_import,"staff-import":staff_import}
+          "lab-import":lab_import,"treatment-import":treatment_import,"staff-import":staff_import,
+          "spray-import":spray_import,"certificate-import":certificate_import}
 
 def demo(workdir=None):
     root=Path(workdir or tempfile.mkdtemp(prefix="cropquarantine-"))

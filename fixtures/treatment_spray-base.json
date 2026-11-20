@@ -1,0 +1,11 @@
+{
+  "products": [
+    {"id": "TOM-SYN", "crop": "tomato", "min_dose": 1, "max_dose": 3}
+  ],
+  "applications": [
+    {"id": "TA1", "plot": "P1", "product": "TOM-SYN", "at": "2026-07-01T10:00:00+08:00", "area_fraction": 0.4, "dose": 2},
+    {"id": "TA2", "plot": "P1", "product": "TOM-SYN", "at": "2026-07-01T10:30:00+08:00", "area_fraction": 0.3, "dose": 1},
+    {"id": "TA3", "plot": "P5", "product": "TOM-SYN", "at": "2026-07-01T10:00:00+08:00", "area_fraction": 0.5, "dose": 2},
+    {"id": "TA5", "plot": "P6", "product": "TOM-SYN", "at": "2026-07-01T10:00:00+08:00", "area_fraction": 0.4, "dose": 2}
+  ]
+}

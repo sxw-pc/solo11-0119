@@ -1,0 +1,16 @@
+{
+  "plots": [
+    {"id": "P1", "xmin": 0, "ymin": 0, "xmax": 10, "ymax": 10, "crop": "tomato"},
+    {"id": "P4", "xmin": 40, "ymin": 0, "xmax": 50, "ymax": 10, "crop": "tomato"},
+    {"id": "P5", "xmin": 60, "ymin": 0, "xmax": 70, "ymax": 10, "crop": "tomato"},
+    {"id": "P6", "xmin": 80, "ymin": 0, "xmax": 90, "ymax": 10, "crop": "tomato"}
+  ],
+  "observations": [
+    {"id": "O1", "plot": "P1", "x": 5, "y": 5, "at": "2026-07-01T09:00:00+08:00", "result": "positive"},
+    {"id": "O2", "plot": "P1", "x": 1, "y": 8, "at": "2026-07-01T09:05:00+08:00", "result": "positive"},
+    {"id": "O40", "plot": "P4", "x": 45, "y": 5, "at": "2026-07-01T09:10:00+08:00", "result": "positive"},
+    {"id": "O50", "plot": "P5", "x": 65, "y": 5, "error_radius": 0.5, "at": "2026-07-01T09:15:00+08:00", "result": "positive"},
+    {"id": "O51", "plot": "P5", "x": 67, "y": 2, "at": "2026-07-01T09:20:00+08:00", "result": "positive"},
+    {"id": "O60", "plot": "P6", "x": 82, "y": 5, "at": "2026-07-01T09:25:00+08:00", "result": "positive"}
+  ]
+}
